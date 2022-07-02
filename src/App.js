@@ -1,23 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.scss";
+import Header from "./components/header/Header";
+import Gallery from "./components/gallery/Gallery";
+
+// 563492ad6f9170000100000180b552d6cce84592b36d72024d9350df
+//https://api.pexels.com/v1/curated?page=1&per_page=15
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+
+      <Gallery />
+      <button className="bg-indigo-800 p-2.5 text-white px-4">More</button>
     </div>
   );
 }
