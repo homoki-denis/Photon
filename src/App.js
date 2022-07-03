@@ -9,8 +9,8 @@ function App() {
   return (
     <div className="App">
       <Header />
-
       <Gallery />
+
       <button className="bg-indigo-800 p-2.5 text-white px-4">More</button>
     </div>
   );

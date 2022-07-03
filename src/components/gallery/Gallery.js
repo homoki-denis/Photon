@@ -1,36 +1,42 @@
 import { useEffect, useState } from "react";
-function Gallery() {
-  const auth = "563492ad6f9170000100000180b552d6cce84592b36d72024d9350df";
 
-  async function renderPhotos() {
-    const dataFetch = await fetch(
-      "https://api.pexels.com/v1/curated?page=1&per_page=15",
-      {
-        method: "GET",
-        headers: {
-          Accept: "application",
-          Authorization: auth,
-        },
+const AUTH_TOKEN = process.env.REACT_APP_PEXELS_AUTH_TOKEN;
+
+function Gallery() {
+  const [photos, setPhotos] = useState([]);
+
+  const renderPhotos = async () => {
+    try {
+      const dataFetch = await fetch(
+        "https://api.pexels.com/v1/curated?page=1&per_page=15",
+        {
+          method: "GET",
+          headers: {
+            Accept: "application",
+            Authorization: AUTH_TOKEN,
+          },
+        }
+      );
+      const data = await dataFetch.json();
+      if (data.photos) {
+        setPhotos(data.photos);
       }
-    );
-    const data = await dataFetch.json();
-    data.photos.forEach((photo) => {
-      console.log(photo);
-      setRenderData(renderData.photo);
-      // const galleryImg = document.createElement("div");
-      // galleryImg.classList.add("gallery-img");
-      // galleryImg.innerHTML = `
-      // <img src=${photo.src.large}></img>
-      // <p>${photo.photographer}</p>`;
-    });
-  }
-  const [renderData, setRenderData] = useState([]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     renderPhotos();
-  });
+  }, []);
+
   return (
     <main>
-      <div className="gallery">{renderData}</div>
+      <div className="gallery">
+        {photos.map((item) => (
+          <img key={item.id} src={item.src.medium} alt="" />
+        ))}
+      </div>
     </main>
   );
 }
